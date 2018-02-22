@@ -29,60 +29,6 @@
         </div>
 
 
-        <div class="feature__item">
-          <img src="to json.png" />
-          <div class="feature__content">
-            <h3 class="section__title">Delightful API</h3>
-            <p>Construct XBRL compliant instance documents with our simple API.</p>
-            <p>Sky High makes sure your instances are always valid XBRL and conform to the taxonomy.</p>
-            <p>This is all the code you need to:</p>
-            <ul>
-              <li>construct a document using our API</li>
-              <li>turn it into valid XBRL</li>
-              <li>turn it into simpler JSON</li>
-              <li>convert an XBRL document into JSON</li>
-            </ul>
-
-<pre style="margin: 0; line-height: 125%; font-size:smaller;"><span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.document.business.Document</span><span style="font-weight: bold">;</span>
-<span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.document.business.DocumentFactory</span><span style="font-weight: bold">;</span>
-<span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.document.exception.CannotReadInstance</span><span style="font-weight: bold">;</span>
-<span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.template.exceptions.CouldNotReadXBRLTaxonomy</span><span style="font-weight: bold">;</span>
-
-<span style="font-weight: bold">public</span> <span style="font-weight: bold">class</span> <span style="color: #445588; font-weight: bold">main</span> <span style="font-weight: bold">{</span>
-
-    <span style="font-weight: bold">public</span> <span style="font-weight: bold">static</span> <span style="color: #445588; font-weight: bold">void</span> <span style="color: #990000; font-weight: bold">main</span><span style="font-weight: bold">(</span>String<span style="font-weight: bold">[]</span> args<span style="font-weight: bold">)</span> <span style="font-weight: bold">throws</span> CouldNotReadXBRLTaxonomy, CannotReadInstance <span style="font-weight: bold">{</span>
-
-        DocumentFactory factory <span style="font-weight: bold">=</span> <span style="font-weight: bold">new</span> DocumentFactory<span style="font-weight: bold">(</span><span style="color: #bb8844">
-          &quot;/tmp/sbr/sbr_au/sbr_au_reports/sprstrm/sprrol
-          /sprrol_0001/sprrol.0001.rollovertrans.request.02.00.report.xsd&quot;</span><span style="font-weight: bold">);</span>
-        Document document <span style="font-weight: bold">=</span> factory<span style="font-weight: bold">.</span><span style="color: #008080">newDocument</span><span style="font-weight: bold">();</span>
-
-        <span style="color: #999988; font-style: italic">// construct a document using our API</span>
-        document<span style="font-weight: bold">.</span><span style="color: #008080">context</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;http://www.abr.gov.au/abn&quot;</span><span style="font-weight: bold">,</span> <span style="color: #bb8844">&quot;1234567890&quot;</span><span style="font-weight: bold">)</span>
-                <span style="font-weight: bold">.</span><span style="color: #008080">period</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;2014-07-01&quot;</span><span style="font-weight: bold">,</span><span style="color: #bb8844">&quot;2014-08-01&quot;</span><span style="font-weight: bold">)</span>
-                <span style="font-weight: bold">.</span><span style="color: #008080">dimension</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;ReportPartyTypeDimension&quot;</span><span style="font-weight: bold">,</span><span style="color: #bb8844">&quot;TransferringFund&quot;</span><span style="font-weight: bold">)</span>
-                <span style="font-weight: bold">.</span><span style="color: #008080">dimension</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;ReceivingSuperFundABNDimension&quot;</span><span style="font-weight: bold">,</span> <span style="color: #bb8844">&quot;11236987487&quot;</span><span style="font-weight: bold">)</span>
-                <span style="font-weight: bold">.</span><span style="color: #008080">fact</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;PaymentMechanism.PaymentReferenceNumber.Identifier&quot;</span><span style="font-weight: bold">,</span><span style="color: #bb8844">&quot;NA1257412369874152&quot;</span><span style="font-weight: bold">);</span>
-
-        <span style="color: #999988; font-style: italic">// turn it into valid XBRL</span>
-        System<span style="font-weight: bold">.</span><span style="color: #008080">out</span><span style="font-weight: bold">.</span><span style="color: #008080">println</span><span style="font-weight: bold">(</span>document<span style="font-weight: bold">.</span><span style="color: #008080">asXbrlXml</span><span style="font-weight: bold">());</span>
-
-        <span style="color: #999988; font-style: italic">// turn it into simpler JSON</span>
-        System<span style="font-weight: bold">.</span><span style="color: #008080">out</span><span style="font-weight: bold">.</span><span style="color: #008080">println</span><span style="font-weight: bold">(</span>document<span style="font-weight: bold">.</span><span style="color: #008080">asXbrlJson</span><span style="font-weight: bold">());</span>
-
-        <span style="color: #999988; font-style: italic">// convert an XBRL document into JSON</span>
-        System<span style="font-weight: bold">.</span><span style="color: #008080">out</span><span style="font-weight: bold">.</span><span style="color: #008080">println</span><span style="font-weight: bold">(</span>factory<span style="font-weight: bold">.</span><span style="color: #008080">getXbrlXml</span><span style="font-weight: bold">().</span><span style="color: #008080">readXBRLIDocument</span><span style="font-weight: bold">(</span>document<span style="font-weight: bold">.</span><span style="color: #008080">asXbrlXml</span><span style="font-weight: bold">()).</span><span style="color: #008080">asXbrlJson</span><span style="font-weight: bold">()</span><span style="font-weight: bold">);</span>
-
-    <span style="font-weight: bold">}</span>
-
-<span style="font-weight: bold">}</span>
-</pre>
-
-
-          </div>
-        </div>
-
-
 
         <div class="feature__item">
           <img src="salvage.png" />
@@ -122,6 +68,60 @@
           <h3 class="section__title">And back again</h3>
           <p>If you need to send XBRL to anyone, Sky High will convert JSON back into XBRL.</p>
           <p>Your app can be completely free of any XBRL processing</p>
+        </div>
+      </div>
+
+
+      <div class="feature__item">
+        <img src="to json.png" />
+        <div class="feature__content">
+          <h3 class="section__title">Delightful API</h3>
+          <p>Construct XBRL compliant instance documents with our simple API.</p>
+          <p>Sky High makes sure your instances are always valid XBRL and conform to the taxonomy.</p>
+          <p>This is all the code you need to:</p>
+          <ul>
+            <li>construct a document using our API</li>
+            <li>turn it into valid XBRL</li>
+            <li>turn it into simpler JSON</li>
+            <li>convert an XBRL document into JSON</li>
+          </ul>
+
+<pre style="margin: 0; line-height: 125%; font-size:smaller;"><span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.document.business.Document</span><span style="font-weight: bold">;</span>
+<span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.document.business.DocumentFactory</span><span style="font-weight: bold">;</span>
+<span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.document.exception.CannotReadInstance</span><span style="font-weight: bold">;</span>
+<span style="font-weight: bold">import</span> <span style="color: #555555">ink.pivot.skyhigh.template.exceptions.CouldNotReadXBRLTaxonomy</span><span style="font-weight: bold">;</span>
+
+<span style="font-weight: bold">public</span> <span style="font-weight: bold">class</span> <span style="color: #445588; font-weight: bold">main</span> <span style="font-weight: bold">{</span>
+
+  <span style="font-weight: bold">public</span> <span style="font-weight: bold">static</span> <span style="color: #445588; font-weight: bold">void</span> <span style="color: #990000; font-weight: bold">main</span><span style="font-weight: bold">(</span>String<span style="font-weight: bold">[]</span> args<span style="font-weight: bold">)</span> <span style="font-weight: bold">throws</span> CouldNotReadXBRLTaxonomy, CannotReadInstance <span style="font-weight: bold">{</span>
+
+      DocumentFactory factory <span style="font-weight: bold">=</span> <span style="font-weight: bold">new</span> DocumentFactory<span style="font-weight: bold">(</span><span style="color: #bb8844">
+        &quot;/tmp/sbr/sbr_au/sbr_au_reports/sprstrm/sprrol
+        /sprrol_0001/sprrol.0001.rollovertrans.request.02.00.report.xsd&quot;</span><span style="font-weight: bold">);</span>
+      Document document <span style="font-weight: bold">=</span> factory<span style="font-weight: bold">.</span><span style="color: #008080">newDocument</span><span style="font-weight: bold">();</span>
+
+      <span style="color: #999988; font-style: italic">// construct a document using our API</span>
+      document<span style="font-weight: bold">.</span><span style="color: #008080">context</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;http://www.abr.gov.au/abn&quot;</span><span style="font-weight: bold">,</span> <span style="color: #bb8844">&quot;1234567890&quot;</span><span style="font-weight: bold">)</span>
+              <span style="font-weight: bold">.</span><span style="color: #008080">period</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;2014-07-01&quot;</span><span style="font-weight: bold">,</span><span style="color: #bb8844">&quot;2014-08-01&quot;</span><span style="font-weight: bold">)</span>
+              <span style="font-weight: bold">.</span><span style="color: #008080">dimension</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;ReportPartyTypeDimension&quot;</span><span style="font-weight: bold">,</span><span style="color: #bb8844">&quot;TransferringFund&quot;</span><span style="font-weight: bold">)</span>
+              <span style="font-weight: bold">.</span><span style="color: #008080">dimension</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;ReceivingSuperFundABNDimension&quot;</span><span style="font-weight: bold">,</span> <span style="color: #bb8844">&quot;11236987487&quot;</span><span style="font-weight: bold">)</span>
+              <span style="font-weight: bold">.</span><span style="color: #008080">fact</span><span style="font-weight: bold">(</span><span style="color: #bb8844">&quot;PaymentMechanism.PaymentReferenceNumber.Identifier&quot;</span><span style="font-weight: bold">,</span><span style="color: #bb8844">&quot;NA1257412369874152&quot;</span><span style="font-weight: bold">);</span>
+
+      <span style="color: #999988; font-style: italic">// turn it into valid XBRL</span>
+      System<span style="font-weight: bold">.</span><span style="color: #008080">out</span><span style="font-weight: bold">.</span><span style="color: #008080">println</span><span style="font-weight: bold">(</span>document<span style="font-weight: bold">.</span><span style="color: #008080">asXbrlXml</span><span style="font-weight: bold">());</span>
+
+      <span style="color: #999988; font-style: italic">// turn it into simpler JSON</span>
+      System<span style="font-weight: bold">.</span><span style="color: #008080">out</span><span style="font-weight: bold">.</span><span style="color: #008080">println</span><span style="font-weight: bold">(</span>document<span style="font-weight: bold">.</span><span style="color: #008080">asXbrlJson</span><span style="font-weight: bold">());</span>
+
+      <span style="color: #999988; font-style: italic">// convert an XBRL document into JSON</span>
+      System<span style="font-weight: bold">.</span><span style="color: #008080">out</span><span style="font-weight: bold">.</span><span style="color: #008080">println</span><span style="font-weight: bold">(</span>factory<span style="font-weight: bold">.</span><span style="color: #008080">getXbrlXml</span><span style="font-weight: bold">().</span><span style="color: #008080">readXBRLIDocument</span><span style="font-weight: bold">(</span>document<span style="font-weight: bold">.</span><span style="color: #008080">asXbrlXml</span><span style="font-weight: bold">()).</span><span style="color: #008080">asXbrlJson</span><span style="font-weight: bold">()</span><span style="font-weight: bold">);</span>
+
+  <span style="font-weight: bold">}</span>
+
+<span style="font-weight: bold">}</span>
+</pre>
+
+
         </div>
       </div>
 
